@@ -1,28 +1,27 @@
 package tests;
-
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import java.io.File;
 
-public class LoginSteps {
-    private WebDriver driver;
+public class LoginSteps extends BasicFunctions {
+    Locators locator = new Locators();
+
+    @Given("^ChromeDriver is started$")
+    public void chromedriverIsStarted() throws Throwable {
+        startChromeDriver();
+    }
 
     @Given("^Main page is opened$")
     public void mainPageIsOpened() throws Throwable {
-        System.setProperty("webdriver.chrome.driver", "D:\\JavaProjects\\CucumberAT\\chromedriver\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.get("http://www.i.ua/");
+        goToUrl("http://www.i.ua/");
     }
 
     @When("^I click Enter button$")
     public void iClickEnterButton() throws Throwable {
+//        locator.enterButton.click();
         WebElement enterButton = driver.findElement(By.xpath("/html/body/div[2]/div[3]/ul[1]/li[2]/a"));
         enterButton.click();
     }
@@ -53,6 +52,6 @@ public class LoginSteps {
 
     @And("^Browser is closed$")
     public void browserIsClosed() throws Throwable {
-        driver.quit();
+        stopChromeDriver();
     }
 }
